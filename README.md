@@ -90,9 +90,8 @@ pip install -r requirements.txt
 ## Usage
 
 ### Supply Chain Management
-
-
-Use the smart contract functions to add raw material suppliers, manufacturers, distributors, and retailers. Track the state of cold drinks as they move through the supply chain.\
+![alt text](https://github.com/Prarthana-Ramesh/ingre-scan-ai/blob/fren/Supply_Chain/test/Connecting%20metamask%20wallet%20t.png?raw=true)
+Use the smart contract functions to add raw material suppliers, manufacturers, distributors, and retailers and other supply chain actions. Track the state of cold drinks as they move through the supply chain.
 
 ### Ingredient Detection
 
