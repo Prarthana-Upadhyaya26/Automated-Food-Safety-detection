@@ -1,0 +1,8 @@
+/client/node_modules/
+
+/client/dist/
+
+/client/.parcel-cache/
+
+build/
+
