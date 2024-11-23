@@ -1,0 +1,22 @@
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+#status {
+  color: #212529;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1rem;
+}
+/*# sourceMappingURL=index.3a01df49.css.map */
