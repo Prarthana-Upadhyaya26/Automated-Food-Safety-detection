@@ -30,6 +30,9 @@ IngreScan consists of two main components:
 - **Tesseract**: OCR engine for text extraction
 - **Solidity**: Smart contract development language for the supply chain component
 - **Ethereum**: Blockchain platform for deploying the smart contract
+- **Truffle**: Development framework for Ethereum, providing tools for smart contract compilation, deployment, and testing
+- **Ganache**: Personal blockchain for testing and development of smart contracts in a local environment
+- **Node.js**: JavaScript runtime used for managing backend processes and running blockchain interaction scripts
 - **Python**: Main language for the backend and data processing
 - **JSON**: For storing ingredient data and compliance results
 - **Regex**: For parsing and extracting ingredient information
@@ -47,6 +50,7 @@ Configure Tesseract path:
 ```python
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Update with your path
 ```
+- Install npm and parcel (globally)
 
 ### 2. Clone the Repository
 
@@ -65,17 +69,30 @@ pip install -r requirements.txt
 
 ### 4. Deploy the Smart Contract
 
-1. Install Truffle:
-```bash
-npm install -g truffle
-```
+1. Install Ganache and create a workspace.
+2. Install Truffle npm package globally by running ```npm install -g truffle```.
+3. In the `truffle-config.js` file update the `from:` address to an address from your Ganache workspace.
+4. Run ```truffle migrate --reset``` from the command line to deploy the smart contract to the blockchain.
+5. Download Metamask Chrome extension for the browser to help interaction between the application and the blockchain.
 
-2. Compile and migrate the smart contract:
-```bash
-truffle migrate --network development
-```
+### 5. To run Front-end server
+
+1. Navigate to the 'client' director:
+   ``` bash
+   cd client
+   ```
+2. Start the Parcel development server
+   ``` bash
+   npm run start 
+   ```
+
 
 ## Usage
+
+### Supply Chain Management
+
+
+Use the smart contract functions to add raw material suppliers, manufacturers, distributors, and retailers. Track the state of cold drinks as they move through the supply chain.\
 
 ### Ingredient Detection
 
@@ -86,54 +103,6 @@ python your_script_name.py
 ```
 3. The extracted ingredients and their compliance status will be saved in `ingredients.json`
 
-### Supply Chain Management
-
-Use the smart contract functions to add raw material suppliers, manufacturers, distributors, and retailers. Track the state of cold drinks as they move through the supply chain.
-
-## Example Smart Contract Code
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
-
-contract SupplyChain {
-    address public Owner;
-
-    constructor() public {
-        Owner = msg.sender;
-    }
-
-    modifier onlyByOwner() {
-        require(msg.sender == Owner, "Only owner can execute this.");
-        _;
-    }
-
-    enum STAGE {
-        Init,
-        RawMaterialSupply,
-        Manufacture,
-        Distribution,
-        Retail,
-        Sold
-    }
-
-    struct coldDrink {
-        uint256 id;
-        string name;
-        string description;
-        uint256 RMSid;
-        uint256 MANid;
-        uint256 DISid;
-        uint256 RETid;
-        STAGE stage;
-        bool ingredientsPermitted;
-    }
-
-    mapping(uint256 => coldDrink) public Stock;
-
-    // Other functions for adding suppliers, manufacturers, distributors, retailers, and tracking stages...
-}
-```
 
 ## Contributing
 
