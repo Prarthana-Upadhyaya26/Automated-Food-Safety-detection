@@ -4,24 +4,24 @@ import json
 import re
 import streamlit as st
 
-# Set the path to your Tesseract executable (Ensure this path is correct)
+
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 # Define banned ingredients and thresholds
-banned_ingredients = ["Aspartame", "Red Dye"]  # Replace with actual banned ingredients
+banned_ingredients = ["Aspartame", "Red Dye"]  
 thresholds = {
     "Polydextrose": 150,
     "Caffeine": 30,
-    "SodiumBenzoate": 100  # Added threshold for Sodium Benzoate
+    "SodiumBenzoate": 100 
 }
 
-# Function to preprocess the frame
+# Preprocess the frame
 def preprocess_image(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
     return thresh
 
-# Function to extract text from a webcam frame
+# Extract text from a webcam frame
 def extract_text_from_frame(frame):
     preprocessed_img = preprocess_image(frame)
     try:
@@ -34,7 +34,7 @@ def extract_text_from_frame(frame):
         st.error(f"Error during text extraction: {e}")
         return None
 
-# Function to extract ingredients from the text
+# Extract ingredients from the text
 def extract_ingredients(text):
     # Updated regex patterns
     pattern_with_value = r"([A-Za-z\s]+)\s*\(\s*([\d]+(?:\.\d+)?\s?[A-Za-z%]+)\s*\)"
@@ -56,7 +56,7 @@ def extract_ingredients(text):
 
     return ingredients_dict
 
-# Function to check ingredients for banned items and threshold limits
+# Check ingredients for banned items and threshold limits
 def check_ingredients(ingredients):
     alerts = []
     for ingredient, amount in ingredients.items():
@@ -78,7 +78,7 @@ def check_ingredients(ingredients):
 
     return alerts
 
-# Function to save the detected ingredients to a JSON file
+# Save the detected ingredients to a JSON file
 def save_ingredients_to_json(ingredients, status, output_file="ingredients.json"):
     if ingredients:
         data = {
@@ -99,7 +99,7 @@ def main():
     st.title("Real-time Label Detection and Ingredient Checking")
 
     # Open webcam video stream
-    cap = cv2.VideoCapture(0)  # Use 0 for the default webcam
+    cap = cv2.VideoCapture(0)  
 
     if not cap.isOpened():
         st.error("Error: Could not open webcam.")
@@ -145,12 +145,10 @@ def main():
                 save_ingredients_to_json(ingredients, status)
             else:
                 st.warning("No ingredients found in the text.")
-
-        # Stop the process if the user clicks "Stop"
+                
         if st.button("Stop"):
             break
 
-    # Release the webcam and close windows
     cap.release()
 
 if __name__ == "__main__":
